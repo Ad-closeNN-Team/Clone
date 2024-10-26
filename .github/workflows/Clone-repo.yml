@@ -14,7 +14,7 @@ jobs:
         steps:
             - name: 检出仓库
               uses: actions/checkout@v4
-            - name: 删除当前仓库
+            - name: 删除当前已有的仓库
               run: sudo rm -rf Repo
             - name: 运行 Bash 脚本和 Python 脚本
               run: |
@@ -26,7 +26,7 @@ jobs:
                 python Remove.py
             - name: 更新时间到文件
               run: |
-                git rebase -i
+                export TZ='Asia/Shanghai'
                 echo "$(date '+%Y/%m/%d %H:%M:%S')" > LastUpdate
             - name: 推送文件
               run: |
