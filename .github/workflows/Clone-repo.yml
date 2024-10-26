@@ -26,6 +26,7 @@ jobs:
                 python Remove.py
             - name: 更新时间到文件
               run: |
+                git rebase -i
                 echo "$(date '+%Y/%m/%d %H:%M:%S')" > LastUpdate
             - name: 推送文件
               run: |
@@ -34,4 +35,4 @@ jobs:
                 git add .
                 git commit -m "$(date '+%Y/%m/%d %H:%M:%S') Auto-update"
                 git pull --rebase
-                git push
+                git push origin main --force
