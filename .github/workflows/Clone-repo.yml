@@ -1,0 +1,36 @@
+name: Clone 仓库
+
+on:
+    schedule:
+        - cron: '0 16 * * *'
+    workflow_dispatch:
+permissions:
+  contents: write
+  deployments: write
+
+jobs:
+    Clone:
+        runs-on: ubuntu-latest
+        steps:
+            - name: 检出仓库
+              uses: actions/checkout@v4
+            - name: 删除当前仓库
+              run: sudo rm -rf Repo
+            - name: 运行 Clone 脚本
+              run: |
+                mkdir Repo
+                cd Repo
+                touch .gitkeep
+                bash ./Clone.sh
+            - name: 写入时间
+              run: |
+                cd ..
+                echo "$(date '+%Y/%m/%d %H:%M:%S')" > LastUpdate
+            - name: 上传文件
+              run: |
+                git config user.name "GitHub Actions"
+                git config user.email "github-actions@github.com"
+                git add .
+                git commit -m "$(date '+%Y/%m/%d %H:%M:%S')Auto-update"
+                git pull --rebase
+                git push
