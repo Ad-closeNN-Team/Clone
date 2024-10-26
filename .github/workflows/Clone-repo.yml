@@ -29,8 +29,8 @@ jobs:
                 echo "$(date '+%Y/%m/%d %H:%M:%S')" > LastUpdate
             - name: 上传文件
               run: |
-                git config user.name "GitHub Actions"
-                git config user.email "github-actions@github.com"
+                git config user.name "GitHub Action"
+                git config user.email "action@github.com"
                 git add .
                 git commit -m "$(date '+%Y/%m/%d %H:%M:%S') Auto-update"
                 git pull --rebase
