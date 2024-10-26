@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "blacksmithre:netherite_anvil",
+    "blacksmithre:chipped_netherite_anvil",
+    "blacksmithre:damaged_netherite_anvil"
+  ]
+}
