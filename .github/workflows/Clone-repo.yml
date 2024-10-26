@@ -22,15 +22,16 @@ jobs:
                 cd Repo
                 touch .gitkeep
                 bash ../Clone.sh
+                cd ..
+                find /Repo -type d -name ".git" -exec rm -rf {} +
             - name: 写入时间
               run: |
-                cd ..
                 echo "$(date '+%Y/%m/%d %H:%M:%S')" > LastUpdate
             - name: 上传文件
               run: |
                 git config user.name "GitHub Actions"
                 git config user.email "github-actions@github.com"
                 git add .
-                git commit -m "$(date '+%Y/%m/%d %H:%M:%S')Auto-update"
+                git commit -m "$(date '+%Y/%m/%d %H:%M:%S') Auto-update"
                 git pull --rebase
                 git push
