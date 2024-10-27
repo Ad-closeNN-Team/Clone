@@ -2,7 +2,7 @@ name: Clone 仓库
 
 on:
     schedule:
-        - cron: '0 16 * * *'
+        - cron: '*/15 * * * *'
     workflow_dispatch:
 permissions:
   contents: write
@@ -18,21 +18,26 @@ jobs:
               run: sudo rm -rf Repo
             - name: 运行 Bash 脚本和 Python 脚本
               run: |
-                mkdir Repo
-                cd Repo
-                touch .gitkeep
-                bash ../Clone.sh
-                cd ..
-                python Remove.py
-            - name: 更新时间到文件
+                mkdir Repo #root
+                cd Repo #root/Repo
+                cd .. #root
+                python "Clone Generator.py" #root
+                cd Repo #root/Repo
+                bash ../Clone.sh #root/Repo
+                cd .. #root
+                python Remove.py #root
+                python "README Generator.py" #root
+            - name: 更新时间
+              id: read_file
               run: |
-                export TZ='Asia/Shanghai'
                 echo "$(date '+%Y/%m/%d %H:%M:%S')" > LastUpdate
+                a=$(<LastUpdate)
+                echo "file_content=$a" >> $GITHUB_ENV
             - name: 推送文件
               run: |
                 git config user.name "GitHub Action"
                 git config user.email "action@github.com"
                 git add .
-                git commit -m "$(date '+%Y/%m/%d %H:%M:%S') Auto-update"
+                git commit -m "${{ env.file_content }} Auto-update"
                 git pull --rebase
-                git push origin main --force
+                git push origin main
