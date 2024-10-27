@@ -8,6 +8,12 @@
 ## 目前已有的仓库
 - [Hex-Dragon/PCL2](https://github.com/Hex-Dragon/PCL2)
 - [Hex-Dragon/LTW3](https://github.com/Hex-Dragon/LTW3)
+- [LTCatt/PCL2Help](https://github.com/LTCatt/PCL2Help)
+- [PCL-Community/PCLC-Meme](https://github.com/PCL-Community/PCLC-Meme)
+- [Hex-Dragon/Re-definition](https://github.com/Hex-Dragon/Re-definition)
+- [Hex-Dragon/bot_luo_core](https://github.com/Hex-Dragon/bot_luo_core)
+- [Hex-Dragon/BlacksmithReforged](https://github.com/Hex-Dragon/BlacksmithReforged)
+- [Hex-Dragon/EnchantmentReforged](https://github.com/Hex-Dragon/EnchantmentReforged)
 ## 如何提交新的望 Clone 的仓库？
 ### 在 GitHub Web 上操作
 #### 直接编辑（适用于有权限）
