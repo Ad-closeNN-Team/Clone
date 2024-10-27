@@ -17,7 +17,6 @@ git clone https://github.com/PCL-Community/Forum.git
 git clone https://github.com/PCL-Community/Help-Launcher.git
 git clone https://github.com/PCL-Community/HookWFB.git
 git clone https://github.com/PCL-Community/Jiapic-Generator.git
-git clone https://github.com/PCL-Community/LMIF-Python.git
 git clone https://github.com/PCL-Community/PCL-1930-Builder.git
 git clone https://github.com/PCL-Community/PCL-Community.github.io.git
 git clone https://github.com/PCL-Community/pcl-custom-download-source.git

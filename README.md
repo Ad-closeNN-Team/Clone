@@ -25,7 +25,6 @@
 - [PCL-Community/Help-Launcher](https://github.com/PCL-Community/Help-Launcher)
 - [PCL-Community/HookWFB](https://github.com/PCL-Community/HookWFB)
 - [PCL-Community/Jiapic-Generator](https://github.com/PCL-Community/Jiapic-Generator)
-- [PCL-Community/LMIF-Python](https://github.com/PCL-Community/LMIF-Python)
 - [PCL-Community/PCL-1930-Builder](https://github.com/PCL-Community/PCL-1930-Builder)
 - [PCL-Community/PCL-Community.github.io](https://github.com/PCL-Community/PCL-Community.github.io)
 - [PCL-Community/pcl-custom-download-source](https://github.com/PCL-Community/pcl-custom-download-source)
@@ -72,5 +71,5 @@
 6. 等待合并
 
 <p align="center"><strong>最后同步时间 <i>(UTC+8:00)</i></strong></p>
-<p align="center"><strong>2024/10/27 15:46:42
+<p align="center"><strong>2024/10/27 15:55:32
 </strong></p>
