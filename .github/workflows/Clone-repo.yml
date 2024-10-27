@@ -29,6 +29,7 @@ jobs:
             - name: 更新时间
               id: read_file
               run: |
+                export TZ='Asia/Shanghai'
                 echo "$(date '+%Y/%m/%d %H:%M:%S')" > LastUpdate
                 a=$(<LastUpdate)
                 echo "file_content=$a" >> $GITHUB_ENV
