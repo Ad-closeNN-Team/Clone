@@ -2,7 +2,7 @@
 这是一个克隆了多个仓库的代码的仓库，由 [GitHub Actions](https://docs.github.com/zh/actions) 来完成自动化的 Clone 并上传至本仓库。
 
 > [!IMPORTANT]
-> 本仓库 Clone 的**所有仓库**均为删除了 `.git` 文件夹后才上传的，所以从本仓库下载仓库源代码将会失去包括\
+> 本仓库 Clone 的**所有仓库**均为删除了 `.git` 文件夹后才上传的，所以从本仓库下载仓库源代码将会失去包括但不限于\
 1.**历史提交记录**\
 2.**远程仓库地址**
 ## 目前已有的仓库
@@ -44,5 +44,5 @@
 6. 等待合并
 
 <p align="center"><strong>最后同步时间 <i>(UTC+8:00)</i></strong></p>
-<p align="center"><strong>2024/10/27 15:03:30
+<p align="center"><strong>2024/10/27 15:06:23
 </strong></p>
