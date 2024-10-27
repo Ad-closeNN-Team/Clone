@@ -12,4 +12,4 @@ def count_lines(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         line_count = sum(1 for line in file)
     return line_count
-print(f"已生成 Clone 脚本。脚本行数: {count_lines("Clone.sh")}")
+print(f"已生成 Clone 脚本。脚本行数: {count_lines('Clone.sh')}")
