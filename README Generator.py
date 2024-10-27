@@ -5,7 +5,7 @@ with open(input_file, 'r', encoding="utf-8") as repos, open('README.md', 'w', en
     readme.write("# Clone\n")
     readme.write("这是一个克隆了多个仓库的代码的仓库，由 [GitHub Actions](https://docs.github.com/zh/actions) 来完成自动化的 Clone 并上传至本仓库。\n\n")
     readme.write("> [!IMPORTANT]\n")
-    important = """> 本仓库 Clone 的**所有仓库**均为删除了 `.git` 文件夹后才上传的，所以从本仓库下载仓库源代码将会失去包括\\
+    important = """> 本仓库 Clone 的**所有仓库**均为删除了 `.git` 文件夹后才上传的，所以从本仓库下载仓库源代码将会失去包括但不限于\\
 1.**历史提交记录**\\
 2.**远程仓库地址**"""
     readme.write(important + '\n')
