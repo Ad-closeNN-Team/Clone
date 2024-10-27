@@ -26,13 +26,13 @@ jobs:
                 bash ../Clone.sh #root/Repo
                 cd .. #root
                 python Remove.py #root
-                python "README Generator.py" #root
             - name: 更新时间
               id: read_file
               run: |
                 echo "$(date '+%Y/%m/%d %H:%M:%S')" > LastUpdate
                 a=$(<LastUpdate)
                 echo "file_content=$a" >> $GITHUB_ENV
+                python "README Generator.py" #root
             - name: 推送文件
               run: |
                 git config user.name "GitHub Action"
