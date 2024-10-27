@@ -1,0 +1,48 @@
+name: 备份 randpic
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: '0 16 * * *'
+permissions:
+  contents: write
+  deployments: write
+jobs:
+    sync:
+        runs-on: ubuntu-latest
+        steps:
+            - name: 检出仓库
+              uses: actions/checkout@v4
+            - name: 删除当前 randpic 文件夹
+              run: | 
+                rm -rf randpic
+                ls
+            - name: 下载新的备份
+              run: python get.py
+
+            - name: 提交更改
+              # codes from: https://github.com/PCL-Community/PCL2Help-Backup/blob/main/.github/workflows/sync.yml
+              id: check_commit
+              run: |
+                # 检查是否有文件被修改但尚未提交
+                if [[ $(git status --porcelain) ]]; then
+                    echo "有文件被修改但尚未提交。"
+                    # 输出修改的文件列表
+                    git status --short
+                    # 添加所有已修改的文件到暂存区
+                    git add .
+                    # 提交暂存区中的文件到仓库
+                    git config --local user.email "action@github.com"
+                    git config --local user.name "Github Action"
+                    git commit -m "Sync"
+                    echo "文件已提交到仓库。"
+                    echo "::set-output name=commit_required::true"
+                else
+                    echo "没有文件被修改。"
+                    echo "::set-output name=commit_required::false"
+                fi
+                
+            - name: 推送更改
+              # codes from: https://github.com/PCL-Community/PCL2Help-Backup/blob/main/.github/workflows/sync.yml
+              uses: ad-m/github-push-action@master
+              with:
+                github_token: ${{ secrets.GITHUB_TOKEN }}

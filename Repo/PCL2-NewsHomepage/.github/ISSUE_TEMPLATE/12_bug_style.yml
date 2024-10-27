@@ -1,0 +1,17 @@
+name: "格式有误"
+description: "新闻主页格式有误，如排版错位"
+labels: ["a:Bug｜漏洞", "h:Style｜样式"]
+body:
+ - type: textarea
+   id: "disc"
+   attributes:
+      label: 描述
+      description: "发生位置及详细内容。"
+   validations:
+      required: true
+ - type: textarea
+   id: "files"
+   attributes:
+      label: "[可选]附件"
+      description: "上传附件"
+      placeholder: "将文件直接拖至这里上传。"

@@ -1,0 +1,15 @@
+name: versions
+fill:
+  official-link: ${$GetLink|Official}
+  version-image-link: ${$GetLink|ImageSta}
+  version-id: ${file_name}
+  title: ${file_name}
+  #server-jar: ${@ServerJar}
+  templates:
+    - Newra/VersionLatestCard
+    - Newra/VersionMarkdownCard
+    - Classic/VersionLatestCard
+    - Classic/VersionMarkdownCard
+    - Simplex/VersionLatestCard
+    - Simplex/VersionMarkdownCard
+    - Raw

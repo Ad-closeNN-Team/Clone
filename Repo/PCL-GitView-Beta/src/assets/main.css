@@ -1,0 +1,20 @@
+@import "./base.css";
+
+body {
+    margin: 0;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    user-select: none;
+}
+
+.el-card.issueDisplayCard > .el-card__body {
+    height: calc(
+        100vh - 60px - 40px - 160px - 20px - 20.8px - 20px - 40px - 60px
+    );
+    padding-top: 29px;
+    padding-right: 8px;
+}
+
+.el-scrollbar__view > .el-card:last-child {
+    margin-bottom: 3.5px !important;
+}

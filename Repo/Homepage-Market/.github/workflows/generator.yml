@@ -1,0 +1,61 @@
+name: Generate Pages
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate:
+    runs-on: windows-latest
+    steps:
+      # <step> 初始化
+      - name: 签出工程储存库
+        uses: actions/checkout@v4
+        with:
+          path: "project"
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # <step> 目录确认
+      - name: 确认目录
+        run: |
+          cd project
+          dir
+      # 没有依赖需要安装 :D
+      # <step> 获取 Hash
+      - name: 获取哈希
+        run: |
+          cd project
+          echo "HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+      # <step> 构建
+      - name: 清理旧生成
+        run: |
+          cd project
+          echo "HASH=$HASH"
+          del ./Custom.xaml
+      - name: 运行生成器
+        run: |
+          cd project
+          node JMBuilder.js
+      # <step> 提交
+      # <depr> GPG Sign 导致提交信息创建时间过长，暂时禁用，后期看看怎么处理
+      # - name: 配置 GPG 信息
+      #   uses: crazy-max/ghaction-import-gpg@v6
+      #   with:
+      #     gpg_private_key: ${{ secrets.X_BOT_GPGS }}
+      #     git_user_signingkey: true
+      #     git_commit_gpgsign: true
+      #     workdir: project
+      - name: 提交与推送更改
+        env:
+          PAT: ${{ secrets.X_BOT_TOKEN }}
+        run: |
+          cd project
+          git config --global user.name "TorchSky"
+          git config --global user.email "torchsky@163.com"
+          git remote add target-repo https://TorchSky:${{ secrets.PAT }}@github.com/HomePlaza-Of-PCL2/Homepage-Market.git
+          git add .
+          git commit -m "[Bot] Generate Homepage File." 
+          git push target-repo main
