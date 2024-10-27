@@ -9,24 +9,28 @@ with open(input_file, 'r', encoding="utf-8") as repos, open('README.md', 'w', en
 1.**历史提交记录**\\
 2.**远程仓库地址**"""
     readme.write(important + '\n')
-    readme.write("## 目前已有的仓库\n")
+    readme.write("## 目前已有的仓库（按 A-Z 顺序排列）\n")
     for line in repos:
         repo = line.strip()  # 去除行末的换行符
         if repo:
             readme.write(f"- [{repo}](https://github.com/{repo})\n")
     with open("LastUpdate", 'r') as last_update:
         time = last_update.read()
-    readme_file = f"""## 如何提交新的望 Clone 的仓库？
+    readme_file = f"""## 如何提交新的希望自动 Clone 的仓库？
 ### 在 GitHub Web 上操作
+
+> [!IMPORTANT]
+> 在提交新仓库时请注意是否已有重复仓库
+
 #### 直接编辑（适用于有权限）
 1. 打开文件 [Repos](https://github.com/Ad-closeNN-Team/Clone/edit/main/Repos)
-2. 在文件中填写仓库名，并按照格式：**用户名(或组织名)/仓库名** (如**Hex-Dragon/PCL2**)
+2. 在文件中填写仓库名，并按照格式：**用户名(或组织名)/仓库名** (如**Hex-Dragon/PCL2**)，**您无需注意排序，因为在生成 Clone 链接的时候会自动格式化顺序（按照字母 A-Z 排序）**
 3. 提交更改
 4. 在 [GitHub Actions](https://github.com/Ad-closeNN-Team/Clone/actions/workflows/Clone-repo.yml) 中运行工作流
 #### 提交 Pull Request（适用于没有权限）
 1. [Fork](https://github.com/Ad-closeNN-Team/Clone/fork) 本仓库
 2. 打开文件 Repos
-3. 在文件中填写仓库名，并按照格式：**用户名(或组织名)/仓库名** (如**Hex-Dragon/PCL2**)
+3. 在文件中填写仓库名，并按照格式：**用户名(或组织名)/仓库名** (如**Hex-Dragon/PCL2**)，**您无需注意排序，因为在生成 Clone 链接的时候会自动格式化顺序（按照字母 A-Z 排序）**
 4. 提交更改到 GitHub
 5. 打开一个 Pull Request
 6. 等待合并
@@ -34,13 +38,13 @@ with open(input_file, 'r', encoding="utf-8") as repos, open('README.md', 'w', en
 #### 直接编辑（适用于有权限）
 1. Clone 本仓库
 2. 打开文件 Repos
-3. 在文件中填写仓库名，并按照格式：**用户名(或组织名)/仓库名** (如**Hex-Dragon/PCL2**)
+3. 在文件中填写仓库名，并按照格式：**用户名(或组织名)/仓库名** (如**Hex-Dragon/PCL2**)，**您无需注意排序，因为在生成 Clone 链接的时候会自动格式化顺序（按照字母 A-Z 排序）**
 4. 提交更改
 5. 在 [GitHub Actions](https://github.com/Ad-closeNN-Team/Clone/actions/workflows/Clone-repo.yml) 中运行工作流
 #### 提交 Pull Request（适用于没有权限）
 1. Clone 本仓库
 2. 打开文件 Repos
-3. 在文件中填写仓库名，并按照格式：**用户名(或组织名)/仓库名** (如**Hex-Dragon/PCL2**)
+3. 在文件中填写仓库名，并按照格式：**用户名(或组织名)/仓库名** (如**Hex-Dragon/PCL2**)，**您无需注意排序，因为在生成 Clone 链接的时候会自动格式化顺序（按照字母 A-Z 排序）**
 4. 提交更改到 GitHub
 5. 打开一个 Pull Request
 6. 等待合并
