@@ -176,7 +176,7 @@ pub fn create_window() {
         .title_bar_style(tauri::TitleBarStyle::Overlay)
         .build();
     #[cfg(target_os = "linux")]
-    let window = builder.decorations(false).transparent(true).build();
+    let window = builder.decorations(true).transparent(true).build();
 
     match window {
         Ok(win) => {
