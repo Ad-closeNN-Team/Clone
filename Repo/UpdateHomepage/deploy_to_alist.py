@@ -1,60 +1,79 @@
-import os
 import requests
+import os
+import time
 
-# 登录 URL
-login_url = 'http://pclhomeplazaoss.lingyunawa.top:26994/api/auth/login'
+# 登录获取 token
+def get_token():
+    url = 'http://pclhomeplazaoss.lingyunawa.top:26994/api/auth/login'
+    data = {'Username': 'your_username', 'Password': 'your_password'}
+    response = requests.post(url, data=data)
+    response_data = response.json()
 
-# 从环境变量中获取用户名和密码
-username = os.getenv('ALIST_USERNAME')
-password = os.getenv('ALIST_PASSWORD')
+    if response.status_code == 200 and 'data' in response_data:
+        token = response_data['data']['token']
+        return token
+    else:
+        raise Exception("无法获取 token，请检查账号密码或登录接口")
 
-# 登录请求数据
-data = {
-    'Username': username,
-    'Password': password
-}
+# 上传文件的函数
+def upload_file(token, file_path, target_path):
+    headers = {
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/octet-stream'
+    }
 
-# 发送 POST 请求获取 Token
-response = requests.post(login_url, data=data)
+    # 读取文件内容
+    with open(file_path, 'rb') as f:
+        file_data = f.read()
 
-# 检查是否成功获取 Token
-if response.status_code == 200:
-    # 假设返回的数据包含 token，通常是 JSON 格式
-    token = response.json().get('token')
-    print(f"Login successful, Token: {token}")
-else:
-    print(f"Login failed. Status code: {response.status_code}, Response: {response.text}")
-    exit(1)
+    # 上传文件
+    upload_url = 'http://pclhomeplazaoss.lingyunawa.top:26994/api/fs/put'
+    params = {
+        'File-Path': target_path,
+        'Content-Length': str(len(file_data))
+    }
 
-# Alist 上传配置
-alist_url = 'http://pclhomeplazaoss.lingyunawa.top:26994/api/fs/put'  # 上传接口
-file_path = os.getenv('FILE_PATH')  # 本地文件路径
-target_path = os.getenv('TARGET_PATH')  # 目标路径（在 Alist 上）
+    # 发起 PUT 请求
+    response = requests.put(upload_url, headers=headers, params=params, data=file_data)
 
-# URL 编码目标文件路径
-from urllib.parse import quote
-encoded_target_path = quote(target_path)
+    # 处理上传结果
+    if response.status_code == 200:
+        print(f"文件 {file_path} 上传成功")
+    else:
+        print(f"上传失败：{response.json()}")
 
-# 读取文件内容
-with open(file_path, 'rb') as f:
-    file_content = f.read()
+# 主逻辑
+def main():
+    try:
+        # 获取 token
+        token = get_token()
+        print(f"Token 获取成功: {token}")
+        
+        # 文件路径列表
+        files_to_upload = [
+            'file1.txt', 
+            'file2.txt',
+            # 在此添加其他需要上传的文件
+        ]
+        
+        # 目标目录
+        target_directory = 'Homepages/Joker2184'
 
-# 获取文件大小
-content_length = str(len(file_content))
+        # 遍历文件并上传
+        for file in files_to_upload:
+            if os.path.exists(file):  # 检查文件是否存在
+                target_path = os.path.join(target_directory, file)
+                print(f"正在上传 {file} 到 {target_path}...")
+                upload_file(token, file, target_path)
+            else:
+                print(f"文件 {file} 不存在，跳过上传")
 
-# 设置请求头
-headers = {
-    'Authorization': f'Bearer {token}',
-    'File-Path': encoded_target_path,
-    'Content-Type': 'application/octet-stream',
-    'Content-Length': content_length,
-}
+    except Exception as e:
+        print(f"发生错误: {e}")
+        # 如果遇到 token 无效，可以重新获取 token 并重新上传
+        print("尝试重新获取 token 并继续上传...")
+        time.sleep(2)  # 等待几秒钟
+        main()  # 递归调用重新运行
 
-# 发送 PUT 请求上传文件
-response = requests.put(alist_url, headers=headers, data=file_content)
-
-# 检查响应
-if response.status_code == 200:
-    print(f"File {file_path} uploaded successfully to {target_path}.")
-else:
-    print(f"Failed to upload file. Status code: {response.status_code}, Response: {response.text}")
+if __name__ == '__main__':
+    main()
