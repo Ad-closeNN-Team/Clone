@@ -64,7 +64,7 @@ const ProfilePage = () => {
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
   const { current } = location.state || {};
 
@@ -105,7 +105,7 @@ const ProfilePage = () => {
 
   const { data: chainLogs = {}, mutate: mutateLogs } = useSWR(
     "getRuntimeLogs",
-    getRuntimeLogs
+    getRuntimeLogs,
   );
 
   const viewerRef = useRef<ProfileViewerRef>(null);
@@ -240,7 +240,7 @@ const ProfilePage = () => {
       setLoadingCache((cache) => {
         // 获取没有正在更新的订阅
         const items = profileItems.filter(
-          (e) => e.type === "remote" && !cache[e.uid]
+          (e) => e.type === "remote" && !cache[e.uid],
         );
         const change = Object.fromEntries(items.map((e) => [e.uid, true]));
 

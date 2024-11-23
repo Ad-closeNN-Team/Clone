@@ -7,7 +7,7 @@ export const useListen = () => {
 
   const addListener = async <T>(
     eventName: string,
-    handler: EventCallback<T>
+    handler: EventCallback<T>,
   ) => {
     const unlisten = await listen(eventName, handler);
     unlistenFns.current.push(unlisten);

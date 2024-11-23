@@ -6,7 +6,7 @@ import Sockette, { type SocketteOptions } from "sockette";
 export const createSockette = (
   url: string,
   opt: SocketteOptions,
-  maxError = 10
+  maxError = 10,
 ) => {
   let remainRetryCount = maxError;
 

@@ -70,7 +70,7 @@ export const TestViewer = forwardRef<TestViewerRef, Props>((props, ref) => {
         if (form.icon && form.icon.startsWith("<svg")) {
           const doc = new DOMParser().parseFromString(
             form.icon,
-            "image/svg+xml"
+            "image/svg+xml",
           );
           if (doc.querySelector("parsererror")) {
             throw new Error("`Icon`svg format error");
@@ -97,7 +97,7 @@ export const TestViewer = forwardRef<TestViewerRef, Props>((props, ref) => {
         Notice.error(err.message || err.toString());
         setLoading(false);
       }
-    })
+    }),
   );
 
   const handleClose = () => {

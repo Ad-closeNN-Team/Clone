@@ -34,7 +34,7 @@ export const ProviderButton = () => {
 
   const hasProvider = Object.keys(data || {}).length > 0;
   const [updating, setUpdating] = useState(
-    Object.keys(data || {}).map(() => false)
+    Object.keys(data || {}).map(() => false),
   );
 
   const setUpdatingAt = (status: boolean, index: number) => {
@@ -107,7 +107,7 @@ export const ProviderButton = () => {
             const expire = sub?.Expire || 0;
             const progress = Math.min(
               Math.round(((download + upload) * 100) / (total + 0.01)) + 1,
-              100
+              100,
             );
             return (
               <>
@@ -213,7 +213,7 @@ const StyledTypeBox = styled(Box)<{ component?: React.ElementType }>(
     marginRight: "4px",
     padding: "0 2px",
     lineHeight: 1.25,
-  })
+  }),
 );
 
 const boxStyle = {

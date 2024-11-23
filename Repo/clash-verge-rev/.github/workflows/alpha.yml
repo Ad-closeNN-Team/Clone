@@ -48,7 +48,7 @@ jobs:
           workspaces: src-tauri
           cache-all-crates: true
           cache-on-failure: true
-      
+
       - name: Install dependencies (ubuntu only)
         if: matrix.os == 'ubuntu-22.04'
         run: |
@@ -119,7 +119,7 @@ jobs:
 
       - name: Add Rust Target
         run: rustup target add ${{ matrix.target }}
-      
+
       - name: Rust Cache
         uses: Swatinem/rust-cache@v2
         with:
@@ -129,7 +129,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -141,10 +141,10 @@ jobs:
           pnpm i
           pnpm check ${{ matrix.target }}
 
-      - name: 'Setup for linux'
+      - name: "Setup for linux"
         run: |-
           sudo ls -lR /etc/apt/
-          
+
           cat > /tmp/sources.list << EOF
           deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu jammy main multiverse universe restricted
           deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu jammy-security main multiverse universe restricted
@@ -170,20 +170,20 @@ jobs:
             patchelf:${{ matrix.arch }} \
             librsvg2-dev:${{ matrix.arch }}
 
-      - name: 'Install aarch64 tools'
+      - name: "Install aarch64 tools"
         if: matrix.target == 'aarch64-unknown-linux-gnu'
         run: |
           sudo apt install -y \
             gcc-aarch64-linux-gnu \
             g++-aarch64-linux-gnu
 
-      - name: 'Install armv7 tools'
+      - name: "Install armv7 tools"
         if: matrix.target == 'armv7-unknown-linux-gnueabihf'
         run: |
           sudo apt install -y \
             gcc-arm-linux-gnueabihf \
             g++-arm-linux-gnueabihf
-      
+
       - name: Build for Linux
         run: |
           export PKG_CONFIG_ALLOW_CROSS=1
@@ -196,7 +196,7 @@ jobs:
           fi
           pnpm build --target ${{ matrix.target }}
         env:
-          NODE_OPTIONS: '--max_old_space_size=4096'
+          NODE_OPTIONS: "--max_old_space_size=4096"
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
 

@@ -139,7 +139,7 @@ const SettingClash = ({ onError }: Props) => {
       >
         <GuardState
           // clash premium 2022.08.26 值为warn
-          value={logLevel === "warn" ? "warning" : logLevel ?? "info"}
+          value={logLevel === "warn" ? "warning" : (logLevel ?? "info")}
           onCatch={onError}
           onFormat={(e: any) => e.target.value}
           onChange={(e) => onChangeData({ "log-level": e })}
@@ -165,7 +165,7 @@ const SettingClash = ({ onError }: Props) => {
             onClick={() => {
               Notice.success(
                 t("Restart Application to Apply Modifications"),
-                1000
+                1000,
               );
               onChangeVerge({ enable_random_port: !enable_random_port });
               patchVerge({ enable_random_port: !enable_random_port });

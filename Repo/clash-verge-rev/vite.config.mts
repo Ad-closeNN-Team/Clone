@@ -7,7 +7,7 @@ import monacoEditorPlugin, {
   type IMonacoEditorOpts,
 } from "vite-plugin-monaco-editor";
 const monacoEditorPluginDefault = (monacoEditorPlugin as any).default as (
-  options: IMonacoEditorOpts
+  options: IMonacoEditorOpts,
 ) => any;
 
 export default defineConfig({

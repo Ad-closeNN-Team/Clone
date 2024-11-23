@@ -76,7 +76,7 @@ export const UpdateViewer = forwardRef<DialogRef>((props, ref) => {
         setDownloaded((a) => {
           return a + e.payload.chunkLength;
         });
-      }
+      },
     );
     try {
       await updateInfo.install();
@@ -100,7 +100,7 @@ export const UpdateViewer = forwardRef<DialogRef>((props, ref) => {
               size="small"
               onClick={() => {
                 openUrl(
-                  `https://github.com/clash-verge-rev/clash-verge-rev/releases/tag/v${updateInfo?.version}`
+                  `https://github.com/clash-verge-rev/clash-verge-rev/releases/tag/v${updateInfo?.version}`,
                 );
               }}
             >

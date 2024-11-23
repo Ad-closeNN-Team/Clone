@@ -20,7 +20,7 @@ export const useConnectionSetting = () =>
     {
       serializer: JSON.stringify,
       deserializer: JSON.parse,
-    }
+    },
   );
 
 // save the state of each profile item loading

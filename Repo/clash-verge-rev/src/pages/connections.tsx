@@ -47,7 +47,7 @@ const ConnectionsPage = () => {
       list.sort(
         (a, b) =>
           new Date(b.start || "0").getTime()! -
-          new Date(a.start || "0").getTime()!
+          new Date(a.start || "0").getTime()!,
       ),
     "Upload Speed": (list) => list.sort((a, b) => b.curUpload! - a.curUpload!),
     "Download Speed": (list) =>
@@ -103,7 +103,7 @@ const ConnectionsPage = () => {
           next(event);
         },
       },
-      3
+      3,
     );
 
     return () => {
@@ -114,7 +114,7 @@ const ConnectionsPage = () => {
   const [filterConn, download, upload] = useMemo(() => {
     const orderFunc = orderOpts[curOrderOpt];
     let connections = connData.connections.filter((conn) =>
-      match(conn.metadata.host || conn.metadata.destinationIP || "")
+      match(conn.metadata.host || conn.metadata.destinationIP || ""),
     );
 
     if (orderFunc) connections = orderFunc(connections);
@@ -152,7 +152,7 @@ const ConnectionsPage = () => {
               setSetting((o) =>
                 o?.layout !== "table"
                   ? { ...o, layout: "table" }
-                  : { ...o, layout: "list" }
+                  : { ...o, layout: "list" },
               )
             }
           >

@@ -48,7 +48,7 @@ export const BackupViewer = forwardRef<DialogRef>((props, ref) => {
     (_: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
       setPage(page);
     },
-    []
+    [],
   );
 
   const fetchAndSetBackupFiles = async () => {
@@ -95,8 +95,8 @@ export const BackupViewer = forwardRef<DialogRef>((props, ref) => {
     setDataSource(
       backupFiles.slice(
         page * DEFAULT_ROWS_PER_PAGE,
-        page * DEFAULT_ROWS_PER_PAGE + DEFAULT_ROWS_PER_PAGE
-      )
+        page * DEFAULT_ROWS_PER_PAGE + DEFAULT_ROWS_PER_PAGE,
+      ),
     );
   }, [page, backupFiles]);
 

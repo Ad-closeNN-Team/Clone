@@ -38,7 +38,7 @@ export interface BackupTableViewerProps {
   page: number;
   onPageChange: (
     event: React.MouseEvent<HTMLButtonElement> | null,
-    page: number
+    page: number,
   ) => void;
   total: number;
   onRefresh: () => Promise<void>;
@@ -109,7 +109,7 @@ export const BackupTableViewer = memo(
                         onClick={async (e: React.MouseEvent) => {
                           e.preventDefault();
                           const confirmed = await window.confirm(
-                            t("Confirm to delete this backup file?")
+                            t("Confirm to delete this backup file?"),
                           );
                           if (confirmed) {
                             await handleDelete(file.filename);
@@ -132,7 +132,7 @@ export const BackupTableViewer = memo(
                         onClick={async (e: React.MouseEvent) => {
                           e.preventDefault();
                           const confirmed = await window.confirm(
-                            t("Confirm to restore this backup file?")
+                            t("Confirm to restore this backup file?"),
                           );
                           if (confirmed) {
                             await handleRestore(file.filename);
@@ -181,7 +181,7 @@ export const BackupTableViewer = memo(
         />
       </TableContainer>
     );
-  }
+  },
 );
 
 function LinuxIcon(props: SVGProps<SVGSVGElement>) {

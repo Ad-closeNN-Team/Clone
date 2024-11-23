@@ -59,7 +59,7 @@ export const LayoutTraffic = () => {
             this.close();
             next(event, { up: 0, down: 0 });
           },
-        }
+        },
       );
 
       return () => {
@@ -69,7 +69,7 @@ export const LayoutTraffic = () => {
     {
       fallbackData: { up: 0, down: 0 },
       keepPreviousData: true,
-    }
+    },
   );
 
   /* --------- meta memory information --------- */
@@ -96,7 +96,7 @@ export const LayoutTraffic = () => {
             this.close();
             next(event, { inuse: 0 });
           },
-        }
+        },
       );
 
       return () => {
@@ -106,7 +106,7 @@ export const LayoutTraffic = () => {
     {
       fallbackData: { inuse: 0 },
       keepPreviousData: true,
-    }
+    },
   );
 
   const [up, upUnit] = parseTraffic(traffic.up);
