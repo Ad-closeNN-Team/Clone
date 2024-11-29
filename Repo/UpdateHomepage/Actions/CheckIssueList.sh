@@ -1,19 +1,31 @@
 #!/bin/bash
 
-# 获取最新 10 个 Issue 的编号和标题
-issues=$(gh api -H "Accept: application/vnd.github+json" \
-    repos/Hex-Dragon/PCL2/issues?state=open&per_page=10)
+# 获取最新的 10 个 Issue 编号和标题
+issues=$(gh issue list --repo Hex-Dragon/PCL2 --limit 10 --json number,title --jq '.')
 
-# 提取 Issue 编号和标题，并去除控制字符
+# 临时存储编号和标题的字符串
+numbers=""
+titles=""
+
+# 提取 Issue 编号和标题
 for i in $(seq 0 9); do
-    # 使用 jq 提取 Issue 编号和标题，并确保控制字符被正确处理
-    number[$i]=$(echo "$issues" | jq -r ".[$i].number" | sed 's/[[:cntrl:]]//g')
-    title[$i]=$(echo "$issues" | jq -r ".[$i].title" | sed 's/[[:cntrl:]]//g')
+    # 拼接数据
+    numbers+="$(echo "$issues" | jq -r ".[$i].number") "
+    titles+="$(echo "$issues" | jq -r ".[$i].title") "
 done
+
+# 打印获取的 Issue 编号和标题
+echo "获取的 Issue 编号：$numbers"
+echo "获取的 Issue 标题：$titles"
+
+# 将字符串拆分成数组
+# 使用 `read` 命令将字符串分割成数组
+read -r -a number <<< "$numbers"
+read -r -a title <<< "$titles"
 
 # 基于最新 Issue 编号创建文件路径
 file_path="Issue#${number[0]}"
-previous_file_path="libraries/Homepage/Issue#${number[1]}-1"
+previous_file_path="Issue#${number[1]}-1"
 
 # 判断是否存在该文件
 if [ -e "$file_path" ]; then
@@ -43,7 +55,7 @@ else
         <StackPanel>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="45" /> <!-- 这里可以修改行数 -->
+                    <RowDefinition Height="45" />
                     <RowDefinition Height="45" />
                     <RowDefinition Height="45" />
                     <RowDefinition Height="45" />
@@ -74,16 +86,10 @@ EOF
 EOF
 fi
 
-# 删除旧的 PR 文件（如果存在），删除的是第二新的 Issue
+# 删除旧的 Issue 文件（如果存在），删除的是第二新的 Issue
 if [ -e "$previous_file_path" ]; then
     echo "删除旧的 XAML 文件: $previous_file_path"
     rm "$previous_file_path"
 else
     echo "没有找到旧的 XAML 文件，Github提交推送"
 fi
-
-# 配置 Git 提交信息并推送
-git config --local user.email "github-actions[bot]@users.noreply.github.com"
-git config --local user.name "github-actions[bot]"
-git add *
-git diff-index --quiet HEAD || git commit -m "Update to PR#$number" && git push
