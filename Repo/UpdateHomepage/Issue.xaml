@@ -1,47 +1,3 @@
-#!/bin/bash
-
-# 获取最新的 10 个 Issue 编号和标题
-issues=$(gh issue list --repo Hex-Dragon/PCL2 --limit 10 --json number,title --jq '.')
-
-# 临时存储编号和标题的字符串
-numbers=""
-titles=""
-
-# 提取 Issue 编号和标题
-for i in $(seq 0 9); do
-    # 拼接数据
-    numbers+="$(echo "$issues" | jq -r ".[$i].number") "
-    titles+="$(echo "$issues" | jq -r ".[$i].title") "
-done
-
-# 打印获取的 Issue 编号和标题
-echo "获取的 Issue 编号：$numbers"
-echo "获取的 Issue 标题：$titles"
-
-# 将字符串拆分成数组
-# 使用 `read` 命令将字符串分割成数组
-read -r -a number <<< "$numbers"
-read -r -a title <<< "$titles"
-
-# 基于最新 Issue 编号创建文件路径
-file_path="Issue.xaml"
-previous_file_path="Issue.xaml"
-
-# 删除旧的 Issue 文件（如果存在），删除的是第二新的 Issue
-if [ -e "$previous_file_path" ]; then
-    echo "删除旧的 XAML 文件: $previous_file_path"
-    rm "$previous_file_path"
-else
-    echo "没有找到旧的 XAML 文件，构建后将Github提交推送"
-fi
-
-# 判断是否存在该文件
-if [ -e "$file_path" ]; then
-    echo "文件存在，无需更改"
-else
-    echo "文件不存在，正在更新"
-    # 创建新 XAML 文件，填入对应的内容
-    cat <<EOF > "$file_path"
 <local:MyCard Margin="0,0,0,15">
     <StackPanel Margin="20,14">
         <Grid>
@@ -77,21 +33,17 @@ else
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="400" />
                 </Grid.ColumnDefinitions>
-EOF
-
-    # 动态填入 Issue 编号和标题
-    for i in $(seq 0 9); do
-        cat <<EOF >> "$file_path"
-                <local:MyListItem Title="Issue#${number[$i]}" Margin="5,0,0,0" IsHitTestVisible="False" Info="${title[$i]}" Grid.Row="$i" Grid.Column="1"/>
-EOF
-    done
-
-    cat <<EOF >> "$file_path"
+                <local:MyListItem Title="Issue#5189" Margin="5,0,0,0" IsHitTestVisible="False" Info="mod检测更新功能添加两个平台的检测" Grid.Row="0" Grid.Column="1"/>
+                <local:MyListItem Title="Issue#5186" Margin="5,0,0,0" IsHitTestVisible="False" Info="游戏崩溃" Grid.Row="1" Grid.Column="1"/>
+                <local:MyListItem Title="Issue#5182" Margin="5,0,0,0" IsHitTestVisible="False" Info="无法删除主页的下载地址（可能是bug吧）" Grid.Row="2" Grid.Column="1"/>
+                <local:MyListItem Title="Issue#5178" Margin="5,0,0,0" IsHitTestVisible="False" Info="f5刷新导致搜索栏异常变淡" Grid.Row="3" Grid.Column="1"/>
+                <local:MyListItem Title="Issue#5173" Margin="5,0,0,0" IsHitTestVisible="False" Info="Mod" Grid.Row="4" Grid.Column="1"/>
+                <local:MyListItem Title="Issue#5172" Margin="5,0,0,0" IsHitTestVisible="False" Info="搜索列表刷新时前置mod列表被清空" Grid.Row="5" Grid.Column="1"/>
+                <local:MyListItem Title="Issue#5171" Margin="5,0,0,0" IsHitTestVisible="False" Info="在文本框中复制或剪切文本时卡顿且无法正常复制" Grid.Row="6" Grid.Column="1"/>
+                <local:MyListItem Title="Issue#5168" Margin="5,0,0,0" IsHitTestVisible="False" Info="模组不兼容后，pcl2报错乱码" Grid.Row="7" Grid.Column="1"/>
+                <local:MyListItem Title="Issue#5163" Margin="5,0,0,0" IsHitTestVisible="False" Info="[转" Grid.Row="8" Grid.Column="1"/>
+                <local:MyListItem Title="Issue#5150" Margin="5,0,0,0" IsHitTestVisible="False" Info="#5135]" Grid.Row="9" Grid.Column="1"/>
             </Grid>
         </StackPanel>
     </StackPanel>
 </local:MyCard>
-EOF
-fi
-
-
